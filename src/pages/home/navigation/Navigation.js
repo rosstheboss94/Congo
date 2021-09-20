@@ -1,35 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
-import "../navigation/Navigation.scss";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { cartActions } from "../../../store/cart-slice";
 import Login from "../../userpage/login/login";
-import CartModal from "../../../components/modals/cart/cart-modal";
+import CongoImage from "../../../assets/congo-logo.png";
+import "../navigation/Navigation.scss";
 
-function Navigation() {
+const Navigation = () => {
   const cartQuantity = useSelector(state => state.cart.cartQuantity);
-  const cartModal = useSelector(state => state.cart.showCart);
-  const dispatch = useDispatch();
 
-  const showCartModal = () => {
-    dispatch(cartActions.showCart());
-  }
   return (
-    <React.Fragment>
-      {cartModal && <CartModal />}
       <Navbar className="navigation">
-        <Navbar.Brand href="#home">Congo</Navbar.Brand>
+        <Navbar.Brand>
+          <img className="logo" src={CongoImage} alt="Congo logo" />
+          <Link to="/">Congo</Link>
+        </Navbar.Brand>
         <Col lg={8}>
-          <Nav className="navigation">
+          <Nav>
             <Form inline>
               <Form.Control
-                className="nav-test"
+                className="nav-input"
                 type="text"
                 placeholder="Search"
               />
@@ -48,12 +42,19 @@ function Navigation() {
           </Nav>
         </Col>
 
-        <Nav className="ml-auto">
-          <Link to="/cart">Cart{cartQuantity}</Link>
-          <Nav.Link><Login /></Nav.Link>
+        <Nav className="cart-user-container ml-auto">
+          <Link to="/cart" className="d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"  viewBox="0 0 16 16">
+              <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+            </svg>
+          </Link>
+          <div className="cart-quantity">
+            <p>{cartQuantity}</p>
+          </div>
+          <div><Nav.Link><Login /></Nav.Link></div>
         </Nav>
       </Navbar>
-    </React.Fragment>
+    
   );
 }
 

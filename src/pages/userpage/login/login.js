@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import SignUpModal from "../../../components/modals/sign-up/signup-modal";
 import LoginModal from "../../../components/modals/login/login-modal";
+import "./login.scss";
 
 const Login = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -22,7 +23,7 @@ const Login = () => {
 
   return (
     <Fragment>
-      <button onClick={loginHandler}>{currentUser}</button>
+      <button className="user" onClick={loginHandler}>{currentUser}</button>
       {showModal && !loginModalState && <SignUpModal showModal={showModal} closeModal={modalHandler} />}
       {showModal && loginModalState && <LoginModal showModal={showModal} closeModal={modalHandler} />}
     </Fragment>

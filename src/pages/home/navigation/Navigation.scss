@@ -1,27 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
-.nav-test{
-    width: 500px !important;
-}
 
 .navigation{
-   /*background-color: #2c3e50;*/
+    height: 10vh;
 
-     a{
+    span a{
         color: black !important;
         font-weight: 700;
         font-family: 'Oswald', sans-serif;
         text-shadow: 1px 1px #2d8fd1;
     }
 
-    a button{
-        
-        border: none;
-    }
-
    button{
        background-color: #2d8fd1;
-   }
+    }
+
+   .logo{
+       height: 80%;
+       width: 50px;
+    }
+
+   .nav-input{
+        width: 500px !important;
+    }
+
+    
 }
+
+.cart-user-container{
+    position: relative;
+
+    .cart{
+        height: 100%;
+        width: 20px;
+    }
+
+    .cart-quantity{
+        position: absolute;
+        bottom: 35%;
+        right: 88%;
+        
+        p{
+            font-size: .8rem;
+            font-weight: bold;
+            margin: 0;
+        }
+    }
+
+    button{
+        font-weight: 700;
+        font-family: 'Oswald', sans-serif;
+        background-color: #fff;
+        border: none;
+    }
+}
+
+
 
 
 
