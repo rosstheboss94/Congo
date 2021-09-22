@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import { Container } from "react-bootstrap";
 import { Card, Button } from "react-bootstrap";
-import StarRating from "../productpage/star-rating/star-rating";
+import StarRating from "../../components/star-rating/star-rating";
 import "./categoryhome.scss";
 
 const categoryReducer = (state, action) => {
@@ -61,7 +61,7 @@ const CategoryHome = () => {
   };
 
   const displayItems = categoryData.selectedCategory.map((item) => {
-    console.log(item);
+    //console.log(item);
     return (
       <Card className="mb-3 cat-container" key={item.asin}>
         <Card.Body className="d-flex flex-column align-items-center cat-home-card">

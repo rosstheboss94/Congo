@@ -1,5 +1,5 @@
 import React from "react";
-import StarRating from "./star-rating/star-rating";
+import StarRating from "../../components/star-rating/star-rating";
 import Features from "./features/features";
 import AddToCart from "./addtocart/addtocart";
 import Reviews from "./reviews/reviews";
