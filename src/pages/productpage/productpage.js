@@ -41,33 +41,27 @@ const ProductPage = () => {
     return dispatchProduct({ type: "NEW-PRODUCT" });
   }, []);
 
-  const getProductData = () => {
-    let responseStatus;
-    fetch(
-      `https://amazon-product-reviews-keywords.p.rapidapi.com/product/details?asin=${params.productId}&country=US`,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-key":
-            "61f507d9f7mshe5053b75016ecc5p1435f8jsn50b4856f8a32",
-          "x-rapidapi-host": "amazon-product-reviews-keywords.p.rapidapi.com",
-        },
-      }
-    )
-      .then((response) => {
-        responseStatus = response.status;
-        return response.json();
-      })
-      .then((product) => {
-        console.log(product.product);
-        console.log(product.product.price.current_price);
-        if (responseStatus >= 200 && responseStatus <= 299) {
-          dispatchProduct({ type: "DONE", productData: product.product });
+  const getProductData = async () => {
+    try {
+      let response = await fetch(
+        `https://amazon-product-reviews-keywords.p.rapidapi.com/product/details?asin=${params.productId}&country=US`,
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key":
+              "61f507d9f7mshe5053b75016ecc5p1435f8jsn50b4856f8a32",
+            "x-rapidapi-host": "amazon-product-reviews-keywords.p.rapidapi.com",
+          },
         }
-      })
-      .catch((err) => {
-        alert(err);
-      });
+      )
+      let responseStatus = response.status;
+      let product = await response.json();
+      if (responseStatus >= 200 && responseStatus <= 299) {
+        dispatchProduct({ type: "DONE", productData: product.product });
+      }
+    }catch(err){
+      console.log(err);
+    }
   };
 
   if (
@@ -75,7 +69,6 @@ const ProductPage = () => {
     product.productLoaded === false
   ) {
     dispatchProduct({ type: "LOAD" });
-    console.log(product.productData.feature_bullets);
   }
 
   const displayProduct = (

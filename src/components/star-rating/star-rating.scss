@@ -1,15 +1,12 @@
-.product-title {
-  height: 50%;
-  border-bottom: 1px solid #95afc0;
+.star-rating-container {
+  
+  margin: 0 !important;
 
-  p {
+  .star-rating {
+    position: relative;
     display: flex;
     justify-content: flex-end;
     width: 100%;
-  }
-
-  .product-review {
-    position: relative;
 
     .star-outter {
       svg {
@@ -29,6 +26,10 @@
       .empty-star{
         color: lightgray;
       }
+    }
+
+    p{
+      margin: 0;
     }
   }
 }

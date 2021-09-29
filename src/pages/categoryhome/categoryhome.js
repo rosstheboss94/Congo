@@ -32,43 +32,37 @@ const CategoryHome = () => {
     return dispatchCategoryData({ type: "RESET" })
   }, []);
 
-
-  const getCategoryData = () => {
-    let responseStatus;
-    fetch(
-      `https://amazon-product-reviews-keywords.p.rapidapi.com/product/search?keyword=${params.categoryId}&country=US&category=aps`,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-key":
-            "61f507d9f7mshe5053b75016ecc5p1435f8jsn50b4856f8a32",
-          "x-rapidapi-host": "amazon-product-reviews-keywords.p.rapidapi.com",
-        },
-      }
-    )
-      .then((response) => {
-        responseStatus = response.status
-        return response.json();
-      })
-      .then((data) => {
-        if (responseStatus >= 200 && responseStatus <= 299) {
-          dispatchCategoryData({ type: "GOTDATA", catData: data.products });
+  const getCategoryData = async () => {
+    try {
+      let res = await fetch(
+        `https://amazon-product-reviews-keywords.p.rapidapi.com/product/search?keyword=${params.categoryId}&country=US&category=aps`,
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key":
+              "61f507d9f7mshe5053b75016ecc5p1435f8jsn50b4856f8a32",
+            "x-rapidapi-host": "amazon-product-reviews-keywords.p.rapidapi.com",
+          },
         }
-      })
-      .catch((err) => {
-        alert(err);
-      });
+      )
+      let responseStatus = res.status;
+      let data = await res.json();
+      if (responseStatus >= 200 && responseStatus <= 299) {
+        dispatchCategoryData({ type: "GOTDATA", catData: data.products });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const displayItems = categoryData.selectedCategory.map((item) => {
-    //console.log(item);
     return (
       <Card className="mb-3 cat-container" key={item.asin}>
         <Card.Body className="d-flex flex-column align-items-center cat-home-card">
           <Card.Title><Link to={`/category/${params.categoryId}/${item.asin}`}>{item.title}</Link></Card.Title>
           <Card.Img variant="top" src={item.thumbnail} />
-          <Card.Text><StarRating productLoaded={categoryData.itemsLoaded} rating={item.reviews.rating} />{item.reviews.rating}</Card.Text>
-          <Card.Text>{`$${item.price.current_price.toFixed(2)}`}</Card.Text>
+          <Card.Text as="div" className="d-flex justify-content-center align-items-center w-100"><StarRating productLoaded={categoryData.itemsLoaded} rating={item.reviews.rating} /> {item.reviews.rating}</Card.Text>
+          <Card.Text className="d-flex justify-content-center">{`$${item.price.current_price.toFixed(2)}`}</Card.Text>
           <Button variant="primary"><Link to={`/category/${params.categoryId}/${item.asin}`}>More Details</Link></Button>
         </Card.Body>
       </Card>

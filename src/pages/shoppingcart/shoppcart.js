@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { cartActions } from "../../store/cart-slice";
 import {
   Container,
@@ -10,6 +11,7 @@ import {
   Dropdown,
   DropdownButton,
 } from "react-bootstrap";
+import Checkout from "../../components/checkout/checkout";
 import "./shoppingcart.scss";
 
 const ShoppingCart = () => {
@@ -52,10 +54,10 @@ const ShoppingCart = () => {
   };
   const displayCart = shoppingCart.map((cartItem, itemIdx) => {
     return (
-      <Card className="cart-card d-flex flex-row mb-3">
-        <Card.Img src={cartItem[0]} />
+      <Card className="cart-card d-flex flex-row">
+        <Card.Img className="product-img" src={cartItem[0]} />
         <Card.Body className="d-flex flex-column">
-          <h3>{cartItem[1]}</h3>
+          <h5>{cartItem[1]}</h5>
           <Card.Text>
             {`$${cartItem[2].toFixed(2)}`}
             <DropdownButton title={itemQuantity ? itemQuantity[itemIdx] : 1}>
@@ -79,31 +81,31 @@ const ShoppingCart = () => {
   return (
     <Container fluid>
       <Row>
-        <Col md={8} lg={8}>
+        <Col>
           {displayCart}
         </Col>
-        <Col lg={4} className="order-summary d-flex flex-column">
+        <Col lg={3} className="order-summary d-flex flex-column">
           <div>
             <h5>ORDER SUMMARY</h5>
           </div>
-          <div>
+          <div className="d-flex justify-content-between">
             <p>SUBTOTAL</p>
             <p>{subTotal.toFixed(2)}</p>
           </div>
-          <div>
+          <div className="d-flex justify-content-between">
             <p>ESTIMATED TAX</p>
             <p>{estimatedTax.toFixed(2)}</p>
           </div>
-          <div>
+          <div className="d-flex justify-content-between">
             <p>SHIPPING</p>
             <p>{shipping.toFixed(2)}</p>
           </div>
-          <div className="border-0">
+          <div className="d-flex justify-content-between border-0">
             <p>ORDER TOTAL</p>
             <p>{orderTotal.toFixed(2)}</p>
           </div>
-          <div className="d-flex flex-column">
-            <Button>CHECKOUT</Button>
+          <div className="d-flex flex-column align-items-center">
+            <Checkout />
             <Button>CONTINUE SHOPPING</Button>
           </div>
         </Col>

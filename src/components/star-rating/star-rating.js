@@ -40,47 +40,41 @@ const StarRating = (props) => {
     </svg>
   );
 
-  
+
   const ratingsMax = [];
   for (let i = 0; i < 5; i++) {
     ratingsMax.push(star);
   }
 
-  const currentRatings = `${
-    props.productLoaded ? props.rating : ""
-  }`;
+  const currentRatings = `${props.productLoaded ? props.rating : ""
+    }`;
 
   const displayRatings = [];
 
   if (props.productLoaded === true) {
     for (let i = 0; i < currentRatings[0]; i++) {
       displayRatings.push(star);
-      console.log(displayRatings);
     }
-    
+
     if (currentRatings[2] >= 7) {
       displayRatings.push(star);
     } else if (currentRatings[2] >= 4 && currentRatings[2] <= 6) {
       displayRatings.push(halfStar);
     }
 
-    if(displayRatings.length < 5){
-      for(let i = 0; i <= 5 - displayRatings.length; i++){
+    if (displayRatings.length < 5) {
+      for (let i = 0; i <= 5 - displayRatings.length; i++) {
         displayRatings.push(emptyStar);
       }
     }
   }
 
   return (
-    <Row className="product-title">
-      <h4>{props.title}</h4>
-      <p>
-        <div className="product-review">
-          <div className="star-outter">{ratingsMax.map((star) => star)}</div>
-          <div className="star-inner">{displayRatings.map((star) => star)}</div>
-        </div>
-        reviews
-      </p>
+    <Row className="star-rating-container">
+      <div className="star-rating">
+        <span className="star-outter">{ratingsMax.map((star) => star)}</span>
+        <span className="star-inner">{displayRatings.map((star) => star)}</span>
+      </div>
     </Row>
   );
 };

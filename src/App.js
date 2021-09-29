@@ -11,6 +11,7 @@ import ProductPage from "./pages/productpage/productpage";
 import Footor from "./pages/home/footor/footor";
 import ShoppingCart from "./pages/shoppingcart/shoppcart";
 
+
 function App() {
   return (
     <Switch>
