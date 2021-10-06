@@ -9,14 +9,15 @@ import { useParams } from "react-router";
 import "./productpage.scss";
 
 const productReducer = (state, action) => {
-  if (action.type === "DONE") {
+  if (action.type === "PRODUCT-DATA-RECEIVED") {
+    console.log(action.productData);
     return {
       productData: action.productData,
       productLoaded: state.productLoaded,
     };
   }
 
-  if (action.type === "LOAD") {
+  if (action.type === "LOAD-PRODUCT") {
     return { productData: state.productData, productLoaded: true };
   }
 
@@ -54,12 +55,11 @@ const ProductPage = () => {
           },
         }
       )
-      let responseStatus = response.status;
       let product = await response.json();
-      if (responseStatus >= 200 && responseStatus <= 299) {
-        dispatchProduct({ type: "DONE", productData: product.product });
+      if (response.status >= 200 && response.status <= 299) {
+        dispatchProduct({ type: "PRODUCT-DATA-RECEIVED", productData: product.product });
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   };
@@ -68,7 +68,7 @@ const ProductPage = () => {
     Object.keys(product.productData).length > 0 &&
     product.productLoaded === false
   ) {
-    dispatchProduct({ type: "LOAD" });
+    dispatchProduct({ type: "LOAD-PRODUCT" });
   }
 
   const displayProduct = (
@@ -77,28 +77,28 @@ const ProductPage = () => {
         <Col lg={6} className="product-images">
           <img src={product.productData.main_image} />
         </Col>
-
-        <Col lg={6} className="px-3">
-          {product.productLoaded ? (
-            <StarRating
+        <Col>
+          <Row>{product.productLoaded && <h3>{product.productData.title}</h3>}</Row>
+          <Row className="d-flex justify-content-end">
+            {product.productLoaded && <StarRating
               productLoaded={product.productLoaded}
               title={product.productData.title}
               rating={product.productData.reviews.rating}
-            />
-          ) : (
-            <div></div>
-          )}
-          <AddToCart
-            productLoaded={product.productLoaded}
-            productPrice={
-              product.productLoaded
-                ? product.productData.price.current_price
-                : 0
-            }
-            productImg={product.productData.main_image}
-            productName={product.productData.title}
-          />
+            />}
+          </Row>
         </Col>
+
+        {/*<AddToCart
+          //  productLoaded={product.productLoaded}
+          //  productPrice={
+          //    product.productLoaded
+          //      ? product.productData.price.current_price
+          //      : 0
+          //  }
+          //  productImg={product.productData.main_image}
+          //  productName={product.productData.title}
+          ///>*/}
+
       </Row>
       <Features
         productLoaded={product.productLoaded}
