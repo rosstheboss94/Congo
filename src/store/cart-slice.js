@@ -20,7 +20,7 @@ const cartSlice = createSlice({
             state.quantity++;
         },
         addProductToCart: (state,action) => {
-            state.cartList = [ ...state.cartList,[action.payload.productImg,action.payload.productName,action.payload.productPrice]];
+            state.cartList = [ ...state.cartList,{productImg: action.payload.productImg, productName: action.payload.productName, productPrice: action.payload.productPrice}];
             state.cartQuantity++
             console.log(state.cartList);
         }

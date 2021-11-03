@@ -14,16 +14,17 @@ import {
 import Checkout from "../../components/checkout/checkout";
 import "./shoppingcart.scss";
 
+
 const ShoppingCart = () => {
   const shoppingCart = useSelector((state) => state.cart.cartList);
   const [itemQuantity, setItemQuantity] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
-  let estimatedTax = subTotal * 0.06;
+  let estimatedTax = subTotal * .06;
+  let orderTotal = subTotal + estimatedTax;
   let shipping = 0;
-  let orderTotal = subTotal + shipping + estimatedTax;
   let itemQuantityArr = [];
   let maxQuantity = [1, 2, 3, 4, 5];
-
+  
   useEffect(() => {
     for (let item of shoppingCart) {
       itemQuantityArr.push(1);
@@ -48,18 +49,21 @@ const ShoppingCart = () => {
   const getSubTotal = () => {
     let currentSubTotal = 0;
     for (let item of shoppingCart) {
-      currentSubTotal += item[2] * itemQuantity[shoppingCart.indexOf(item)];
+      currentSubTotal += item.productPrice * itemQuantity[shoppingCart.indexOf(item)];
     }
     setSubTotal(currentSubTotal);
   };
+  
+ 
+
   const displayCart = shoppingCart.map((cartItem, itemIdx) => {
     return (
       <Card className="cart-card d-flex flex-row">
-        <Card.Img className="product-img" src={cartItem[0]} />
+        <Card.Img className="product-img" src={cartItem.productImg} />
         <Card.Body className="d-flex flex-column">
-          <h5>{cartItem[1]}</h5>
+          <h5>{cartItem.productName}</h5>
           <Card.Text>
-            {`$${cartItem[2].toFixed(2)}`}
+            {`$${cartItem.productPrice.toFixed(2)}`}
             <DropdownButton title={itemQuantity ? itemQuantity[itemIdx] : 1}>
               {maxQuantity.map((quantity) => {
                 return (
@@ -78,6 +82,7 @@ const ShoppingCart = () => {
       </Card>
     );
   });
+
   return (
     <Container fluid>
       <Row>
@@ -105,7 +110,9 @@ const ShoppingCart = () => {
             <p>{orderTotal.toFixed(2)}</p>
           </div>
           <div className="d-flex flex-column align-items-center">
-            <Checkout />
+            <Checkout 
+            amount={orderTotal} 
+            />
             <Button>CONTINUE SHOPPING</Button>
           </div>
         </Col>

@@ -1,63 +1,109 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
 
-.navigation{
-    height: 10vh;
+.navigation {
+  height: 10vh;
 
-    span a{
-        color: black !important;
-        font-weight: 700;
-        font-family: 'Oswald', sans-serif;
-        text-shadow: 1px 1px #2d8fd1;
-    }
+  span a {
+    color: black !important;
+    font-weight: 700;
+    font-family: "Oswald", sans-serif;
+    text-shadow: 1px 1px #2d8fd1;
+  }
 
-   button{
-       background-color: #2d8fd1;
-    }
+  .logo {
+    height: 80%;
+    width: 100%;
+    //width: 50px;
+  }
 
-   .logo{
-       height: 80%;
-       width: 50px;
-    }
-
-   .nav-input{
-        width: 500px !important;
-    }
-
-    
+  .nav-input {
+    //width: 100%;
+    //width: 500px !important;
+  }
 }
 
-.cart-user-container{
-    position: relative;
+.toggler {
+  button {
+    width: 30%;
+    background-color: #2d8fd1;
+  }
+}
 
-    .cart{
+.cart {
+  svg {
+    height: 30px;
+    color: black;
+  }
+}
+
+.cart-user-container {
+  position: relative;
+
+  .cart {
+    height: 100%;
+    width: 20px;
+  }
+
+  .cart-quantity {
+    position: absolute;
+    bottom: 35%;
+    right: 88%;
+
+    p {
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+
+  button {
+    font-weight: 700;
+    font-family: "Oswald", sans-serif;
+    background-color: #fff;
+    border: none;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .navigation {
+  }
+
+  .toggler {
+    .navbar-toggler {
+      position: relative;
+    }
+
+    .navbar-collapse {
+      position: absolute;
+      top: 42px;
+      background-color: #dddbdb;
+    }
+
+    .search-form {
+      height: 40px;
+
+      div{
+        display: flex;
+        align-items: center;
         height: 100%;
-        width: 20px;
-    }
+      }
 
-    .cart-quantity{
-        position: absolute;
-        bottom: 35%;
-        right: 88%;
-        
-        p{
-            font-size: .8rem;
-            font-weight: bold;
-            margin: 0;
-        }
-    }
+      input {
+        display: inline-block;
+        width: 80%;
+        padding: 0 0 0 .75rem !important;
+      }
 
-    button{
-        font-weight: 700;
-        font-family: 'Oswald', sans-serif;
-        background-color: #fff;
+      button{
+        width: 20%;
+        height: 100%;
+        padding: 0;
         border: none;
+      }
+
+      svg{
+        height: 100%;
+      }
     }
+  }
 }
-
-
-
-
-
-
-
-

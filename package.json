@@ -23,13 +23,18 @@
     "react-stripe-checkout": "^2.6.3",
     "stripe": "^8.176.0",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "@stripe/react-stripe-js": "^1.0.0",
+    "@stripe/stripe-js": "^1.0.0",
+    "concurrently": "4.1.2"
   },
+  "homepage":"http://localhost:3000/",
+  "proxy": "http://localhost:4242",
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start": "concurrently \"react-scripts start\" \"nodemon server.js\""
   },
   "eslintConfig": {
     "extends": [

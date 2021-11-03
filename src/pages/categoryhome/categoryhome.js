@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { Container } from "react-bootstrap";
 import { Card, Button } from "react-bootstrap";
 import StarRating from "../../components/star-rating/star-rating";
+import LoadingSpinner from "../../components/spinner/spinner";
 import "./categoryhome.scss";
 
 const categoryReducer = (state, action) => {
@@ -71,7 +72,7 @@ const CategoryHome = () => {
 
   return (
     <Container fluid className="d-flex flex-wrap justify-content-between w-75">
-      {categoryData.itemsLoaded ? displayItems : <h1>loading</h1>}
+      {categoryData.itemsLoaded ? displayItems : <div className="spinner-container"><LoadingSpinner /></div>}
     </Container>
   );
 };

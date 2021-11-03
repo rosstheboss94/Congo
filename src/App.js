@@ -10,6 +10,7 @@ import SellingCTA from "./pages/home/sellingcta/sellingcta";
 import ProductPage from "./pages/productpage/productpage";
 import Footor from "./pages/home/footor/footor";
 import ShoppingCart from "./pages/shoppingcart/shoppcart";
+import ProductDisplay from "./components/checkout/checkout";
 
 
 function App() {
@@ -20,13 +21,16 @@ function App() {
         <Categories />
         <AdCarousel />
         <FeaturedCategories />
-        <SellingCTA />
-        <Footor />
+        {/*<SellingCTA />
+        <Footor />*/}
       </Route>
       <Route path="/cart" exact>
         <Navigation />
         <Categories />
         <ShoppingCart />
+      </Route>
+      <Route path="/checkout" exact>
+        <ProductDisplay />
       </Route>
       <Route path="/category/:categoryId" exact>
         <Navigation />

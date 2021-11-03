@@ -88,16 +88,16 @@ const ProductPage = () => {
           </Row>
         </Col>
 
-        {/*<AddToCart
-          //  productLoaded={product.productLoaded}
-          //  productPrice={
-          //    product.productLoaded
-          //      ? product.productData.price.current_price
-          //      : 0
-          //  }
-          //  productImg={product.productData.main_image}
-          //  productName={product.productData.title}
-          ///>*/}
+        <AddToCart
+            productLoaded={product.productLoaded}
+            productPrice={
+              product.productLoaded
+                ? product.productData.price.current_price
+                : 0
+            }
+            productImg={product.productData.main_image}
+            productName={product.productData.title}
+          />
 
       </Row>
       <Features

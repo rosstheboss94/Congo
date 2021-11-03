@@ -9,7 +9,7 @@ import iphoneAd from "../../../assets/iphone-ad.jpg";
 function AdCarousel() {
   return (
     <Container fluid className="carousel d-flex justify-content-center">
-      <Carousel interval="50000" >
+      <Carousel interval="10000" >
         <Carousel.Item className="position-static">
           <img
             className="d-block w-100"

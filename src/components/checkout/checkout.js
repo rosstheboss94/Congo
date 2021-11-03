@@ -1,46 +1,55 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
-import StripeCheckout from 'react-stripe-checkout';
+import React, { useState, useEffect } from "react";
+import "./checkout.scss";
 
-const STRIPE_PUBLISHABLE = "pk_test_51JeTwgFrHokNzP1aPYZwFUgesi6pFCyRjAHrqj92qivLc3jylykXbYqV416Sr2UfSvsaEfzGnxko4YOgfgqyfZRq00aHWAHSAd"
-const PAYMENT_SERVER_URL = 'http://localhost:8080';
+const ProductDisplay = () => {
+  const sendShoppingCart = async (event) => {
+    event.preventDefault();
+    console.log("checkout");
+   try {
+      const response = await fetch("/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: [
+            {name: "book", quantity: 2, amount: 10000},
+            {name: "carpet", quantity: 1, amount: 20000}
+          ]
+        }),
+      });
+      let url;
+      if (response.ok) {
+        url = await response.json();
+        window.location = url.url;
+      }else{
+        throw Error;
+      }
+    } catch (err) {
+      console.log("bob");
+    }
+  };
 
-const CURRENCY = 'USD';
-
-const fromUsdToCent = amount => amount * 100;
-
-const successPayment = data => {
-    alert('Payment Successful');
+  return (
+    <section className="checkout">
+      <div className="product">
+        <img
+          src="https://i.imgur.com/EHyR2nP.png"
+          alt="The cover of Stubborn Attachments"
+        />
+        <div className="description">
+          <h3>Stubborn Attachments</h3>
+          <h5>$20.00</h5>
+        </div>
+      </div>
+      <form>
+        <button onClick={sendShoppingCart}>Checkout</button>
+      </form>
+    </section>
+  );
 };
 
-const errorPayment = data => {
-    alert('Payment Error');
-};
-
-const onToken = (amount, description) => token => {
-    fetch(PAYMENT_SERVER_URL,
-        {
-            method: 'POST',
-            description,
-            source: token.id,
-            currency: CURRENCY,
-            amount: fromUsdToCent(amount)
-        })
-        .then(successPayment)
-        .catch(errorPayment);
-}
 
 
-const Checkout = ({ name, description, amount }) =>
-    <StripeCheckout
-        name={name}
-        description={description}
-        amount={fromUsdToCent(amount)}
-        token={onToken(amount, description)}
-        currency={CURRENCY}
-        stripeKey={STRIPE_PUBLISHABLE}
-    >
-        <Button>Checkout</Button>
-    </StripeCheckout>
+export default ProductDisplay;
 
-export default Checkout;

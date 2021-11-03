@@ -15,3 +15,14 @@
 .carousel-control-next{
     justify-content: end !important;
 }
+
+@media screen and (max-width: 575px){
+    .carousel{
+        height: 30vh;
+        width: 100%;
+
+        img{
+            height: 30vh;
+        }
+    }
+}
